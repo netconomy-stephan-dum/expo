@@ -1,7 +1,10 @@
 // This file configures the runtime environment to increase compatibility with WinterCG.
 // https://wintercg.org/
 
+import structuredClone from '@ungap/structured-clone';
+
 import { installFormDataPatch } from './FormData';
+import { ImportMetaRegistry } from './ImportMetaRegistry';
 import { installGlobal as install } from './installGlobal';
 
 // https://encoding.spec.whatwg.org/#textdecoder
@@ -17,10 +20,10 @@ install('URLSearchParams', () => require('./url').URLSearchParams);
 // https://streams.spec.whatwg.org/#rs
 // ReadableStream is injected by Metro as a global
 
-install('__ExpoImportMetaRegistry', () => require('./ImportMetaRegistry').ImportMetaRegistry);
+install('__ExpoImportMetaRegistry', () => ImportMetaRegistry);
 
 // https://html.spec.whatwg.org/multipage/structured-data.html#structuredclone
-install('structuredClone', () => require('@ungap/structured-clone').default);
+install('structuredClone', () => structuredClone);
 
 installFormDataPatch(FormData);
 
