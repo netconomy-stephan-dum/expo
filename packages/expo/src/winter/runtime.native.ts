@@ -1,11 +1,10 @@
 // This file configures the runtime environment to increase compatibility with WinterCG.
 // https://wintercg.org/
 
-import structuredClone from '@ungap/structured-clone';
-
 import { installFormDataPatch } from './FormData';
 import { ImportMetaRegistry } from './ImportMetaRegistry';
 import { installGlobal as install } from './installGlobal';
+import clone from './structuredClone';
 
 // https://encoding.spec.whatwg.org/#textdecoder
 install('TextDecoder', () => require('./TextDecoder').TextDecoder);
@@ -23,7 +22,7 @@ install('URLSearchParams', () => require('./url').URLSearchParams);
 install('__ExpoImportMetaRegistry', () => ImportMetaRegistry);
 
 // https://html.spec.whatwg.org/multipage/structured-data.html#structuredclone
-install('structuredClone', () => structuredClone);
+install('structuredClone', () => clone);
 
 installFormDataPatch(FormData);
 
